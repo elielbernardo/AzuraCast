@@ -18,6 +18,6 @@ playlist_compartilhado___comerciais___volta_de_bloco = blank()
 
 radio = blank()
 
-%include "/schedule/gospelhits_schedule.liq"
+%include "/var/azuracast/liquidsoap/gospelhits_schedule.liq"
 
 ignore(radio)
