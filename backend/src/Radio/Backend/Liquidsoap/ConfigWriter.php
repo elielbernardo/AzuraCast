@@ -450,6 +450,12 @@ final class ConfigWriter implements EventSubscriberInterface
             }
         }
 
+        // Custom configuration after native playlists are declared, but before
+        // AutoDJ and request queues are wrapped around the radio source.
+        // This is the safe insertion point for station schedules that must not
+        // take priority over requests or interrupting requests.
+        $this->writeCustomConfigurationSection($event, StationBackendConfiguration::CUSTOM_POST_PLAYLISTS);
+
         if (!$station->backend_config->use_manual_autodj) {
             $event->appendBlock(
                 <<< LIQ
