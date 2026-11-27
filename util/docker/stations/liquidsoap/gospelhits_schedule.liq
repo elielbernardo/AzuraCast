@@ -84,6 +84,7 @@ gh_gospel_club = rotate(
 gh_entrada_super_sequencia = sequence(
   id="gh_entrada_super_sequencia",
   [
+    once(playlist_vinhetas___classic_hits___05___encerramento),
     once(playlist_compartilhado___comerciais___saida_de_bloco),
     once(playlist_compartilhado___comerciais___anuncios),
     once(playlist_vinhetas___super_sequencia___02___avisos),
@@ -99,6 +100,7 @@ gh_entrada_super_sequencia = sequence(
 gh_entrada_classic_hits = sequence(
   id="gh_entrada_classic_hits",
   [
+    once(playlist_vinhetas___super_sequencia___05___encerramento),
     once(playlist_compartilhado___comerciais___saida_de_bloco),
     once(playlist_compartilhado___comerciais___anuncios),
     once(playlist_vinhetas___classic_hits___02___avisos),
@@ -114,6 +116,7 @@ gh_entrada_classic_hits = sequence(
 gh_entrada_gospel_beats = sequence(
   id="gh_entrada_gospel_beats",
   [
+    once(playlist_vinhetas___classic_hits___05___encerramento),
     once(playlist_compartilhado___comerciais___saida_de_bloco),
     once(playlist_compartilhado___comerciais___anuncios),
     once(playlist_vinhetas___gospel_beats___02___avisos),
@@ -129,6 +132,7 @@ gh_entrada_gospel_beats = sequence(
 gh_entrada_conexao_hits = sequence(
   id="gh_entrada_conexao_hits",
   [
+    once(playlist_vinhetas___gospel_beats___05___encerramento),
     once(playlist_compartilhado___comerciais___saida_de_bloco),
     once(playlist_compartilhado___comerciais___anuncios),
     once(playlist_vinhetas___conexao_hits___02___avisos),
@@ -144,6 +148,7 @@ gh_entrada_conexao_hits = sequence(
 gh_entrada_hits_brasil = sequence(
   id="gh_entrada_hits_brasil",
   [
+    once(playlist_vinhetas___conexao_hits___05___encerramento),
     once(playlist_compartilhado___comerciais___saida_de_bloco),
     once(playlist_compartilhado___comerciais___anuncios),
     once(playlist_vinhetas___hits_brasil___02___avisos),
@@ -159,6 +164,7 @@ gh_entrada_hits_brasil = sequence(
 gh_entrada_gospel_rock = sequence(
   id="gh_entrada_gospel_rock",
   [
+    once(playlist_vinhetas___conexao_hits___05___encerramento),
     once(playlist_compartilhado___comerciais___saida_de_bloco),
     once(playlist_compartilhado___comerciais___anuncios),
     once(playlist_vinhetas___gospel_rock___02___avisos),
@@ -174,6 +180,7 @@ gh_entrada_gospel_rock = sequence(
 gh_entrada_pop_hits = sequence(
   id="gh_entrada_pop_hits",
   [
+    once(playlist_vinhetas___gospel_rock___05___encerramento),
     once(playlist_compartilhado___comerciais___saida_de_bloco),
     once(playlist_compartilhado___comerciais___anuncios),
     once(playlist_vinhetas___pop_hits___02___avisos),
@@ -189,6 +196,7 @@ gh_entrada_pop_hits = sequence(
 gh_entrada_ultimo_volume = sequence(
   id="gh_entrada_ultimo_volume",
   [
+    once(playlist_vinhetas___conexao_hits___05___encerramento),
     once(playlist_compartilhado___comerciais___saida_de_bloco),
     once(playlist_compartilhado___comerciais___anuncios),
     once(playlist_vinhetas___ultimo_volume___02___avisos),
@@ -204,6 +212,7 @@ gh_entrada_ultimo_volume = sequence(
 gh_entrada_gospel_club = sequence(
   id="gh_entrada_gospel_club",
   [
+    once(playlist_vinhetas___hits_brasil___05___encerramento),
     once(playlist_compartilhado___comerciais___saida_de_bloco),
     once(playlist_compartilhado___comerciais___anuncios),
     once(playlist_vinhetas___gospel_club___02___avisos),
