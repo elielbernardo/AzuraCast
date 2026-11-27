@@ -431,10 +431,22 @@ gh_grade_semanal = switch(
   ]
 )
 
+# Cada faixa da rotacao geral recebe uma ponte. merge=true transforma
+# musica + ponte em uma unica faixa logica, portanto a ponte nao consome
+# uma das seis posicoes musicais do contador comercial.
+gh_musica_com_ponte = sequence(
+  id="gh_musica_com_ponte",
+  merge=true,
+  [
+    radio,
+    once(playlist_vinhetas_pontes_28rotacao_geral29)
+  ]
+)
+
 gh_rotacao_geral = rotate(
   id="gh_rotacao_geral",
   weights=[6, 1],
-  [radio, gh_bloco_comercial]
+  [gh_musica_com_ponte, gh_bloco_comercial]
 )
 
 # A grade e a rotacao comercial ficam abaixo das filas nativas:
