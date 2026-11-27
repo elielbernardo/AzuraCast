@@ -77,24 +77,173 @@ gh_gospel_club = rotate(
   [playlist_gospel_club, gh_bloco_comercial]
 )
 
-# Grade semanal: programas regulares com comerciais e Super Sequencia
-# sem comerciais. Fora dos horarios, usa a rotacao geral do AutoDJ.
+# Blocos de entrada: o horario da grade e o horario previsto.
+# track_sensitive=true deixa a musica anterior terminar; so depois disso
+# executa o bloco comercial de entrada, o aviso especifico e a abertura.
+# Cada aviso toca imediatamente apos o primeiro anuncio do bloco.
+gh_entrada_super_sequencia = sequence(
+  id="gh_entrada_super_sequencia",
+  [
+    once(playlist_compartilhado___comerciais___saida_de_bloco),
+    once(playlist_compartilhado___comerciais___anuncios),
+    once(playlist_vinhetas___super_sequencia___02___avisos),
+    once(playlist_compartilhado___comerciais___vhts_entre_comerciais),
+    once(playlist_compartilhado___comerciais___anuncios),
+    once(playlist_compartilhado___comerciais___vhts_entre_comerciais),
+    once(playlist_compartilhado___comerciais___anuncios),
+    once(playlist_compartilhado___comerciais___volta_de_bloco),
+    once(playlist_vinhetas___super_sequencia___01___abertura)
+  ]
+)
+
+gh_entrada_classic_hits = sequence(
+  id="gh_entrada_classic_hits",
+  [
+    once(playlist_compartilhado___comerciais___saida_de_bloco),
+    once(playlist_compartilhado___comerciais___anuncios),
+    once(playlist_vinhetas___classic_hits___02___avisos),
+    once(playlist_compartilhado___comerciais___vhts_entre_comerciais),
+    once(playlist_compartilhado___comerciais___anuncios),
+    once(playlist_compartilhado___comerciais___vhts_entre_comerciais),
+    once(playlist_compartilhado___comerciais___anuncios),
+    once(playlist_compartilhado___comerciais___volta_de_bloco),
+    once(playlist_vinhetas___classic_hits___01___abertura)
+  ]
+)
+
+gh_entrada_gospel_beats = sequence(
+  id="gh_entrada_gospel_beats",
+  [
+    once(playlist_compartilhado___comerciais___saida_de_bloco),
+    once(playlist_compartilhado___comerciais___anuncios),
+    once(playlist_vinhetas___gospel_beats___02___avisos),
+    once(playlist_compartilhado___comerciais___vhts_entre_comerciais),
+    once(playlist_compartilhado___comerciais___anuncios),
+    once(playlist_compartilhado___comerciais___vhts_entre_comerciais),
+    once(playlist_compartilhado___comerciais___anuncios),
+    once(playlist_compartilhado___comerciais___volta_de_bloco),
+    once(playlist_vinhetas___gospel_beats___01___abertura)
+  ]
+)
+
+gh_entrada_conexao_hits = sequence(
+  id="gh_entrada_conexao_hits",
+  [
+    once(playlist_compartilhado___comerciais___saida_de_bloco),
+    once(playlist_compartilhado___comerciais___anuncios),
+    once(playlist_vinhetas___conexao_hits___02___avisos),
+    once(playlist_compartilhado___comerciais___vhts_entre_comerciais),
+    once(playlist_compartilhado___comerciais___anuncios),
+    once(playlist_compartilhado___comerciais___vhts_entre_comerciais),
+    once(playlist_compartilhado___comerciais___anuncios),
+    once(playlist_compartilhado___comerciais___volta_de_bloco),
+    once(playlist_vinhetas___conexao_hits___01___abertura)
+  ]
+)
+
+gh_entrada_hits_brasil = sequence(
+  id="gh_entrada_hits_brasil",
+  [
+    once(playlist_compartilhado___comerciais___saida_de_bloco),
+    once(playlist_compartilhado___comerciais___anuncios),
+    once(playlist_vinhetas___hits_brasil___02___avisos),
+    once(playlist_compartilhado___comerciais___vhts_entre_comerciais),
+    once(playlist_compartilhado___comerciais___anuncios),
+    once(playlist_compartilhado___comerciais___vhts_entre_comerciais),
+    once(playlist_compartilhado___comerciais___anuncios),
+    once(playlist_compartilhado___comerciais___volta_de_bloco),
+    once(playlist_vinhetas___hits_brasil___01___abertura)
+  ]
+)
+
+gh_entrada_gospel_rock = sequence(
+  id="gh_entrada_gospel_rock",
+  [
+    once(playlist_compartilhado___comerciais___saida_de_bloco),
+    once(playlist_compartilhado___comerciais___anuncios),
+    once(playlist_vinhetas___gospel_rock___02___avisos),
+    once(playlist_compartilhado___comerciais___vhts_entre_comerciais),
+    once(playlist_compartilhado___comerciais___anuncios),
+    once(playlist_compartilhado___comerciais___vhts_entre_comerciais),
+    once(playlist_compartilhado___comerciais___anuncios),
+    once(playlist_compartilhado___comerciais___volta_de_bloco),
+    once(playlist_vinhetas___gospel_rock___01___abertura)
+  ]
+)
+
+gh_entrada_pop_hits = sequence(
+  id="gh_entrada_pop_hits",
+  [
+    once(playlist_compartilhado___comerciais___saida_de_bloco),
+    once(playlist_compartilhado___comerciais___anuncios),
+    once(playlist_vinhetas___pop_hits___02___avisos),
+    once(playlist_compartilhado___comerciais___vhts_entre_comerciais),
+    once(playlist_compartilhado___comerciais___anuncios),
+    once(playlist_compartilhado___comerciais___vhts_entre_comerciais),
+    once(playlist_compartilhado___comerciais___anuncios),
+    once(playlist_compartilhado___comerciais___volta_de_bloco),
+    once(playlist_vinhetas___pop_hits___01___abertura)
+  ]
+)
+
+gh_entrada_ultimo_volume = sequence(
+  id="gh_entrada_ultimo_volume",
+  [
+    once(playlist_compartilhado___comerciais___saida_de_bloco),
+    once(playlist_compartilhado___comerciais___anuncios),
+    once(playlist_vinhetas___ultimo_volume___02___avisos),
+    once(playlist_compartilhado___comerciais___vhts_entre_comerciais),
+    once(playlist_compartilhado___comerciais___anuncios),
+    once(playlist_compartilhado___comerciais___vhts_entre_comerciais),
+    once(playlist_compartilhado___comerciais___anuncios),
+    once(playlist_compartilhado___comerciais___volta_de_bloco),
+    once(playlist_vinhetas___ultimo_volume___01___abertura)
+  ]
+)
+
+gh_entrada_gospel_club = sequence(
+  id="gh_entrada_gospel_club",
+  [
+    once(playlist_compartilhado___comerciais___saida_de_bloco),
+    once(playlist_compartilhado___comerciais___anuncios),
+    once(playlist_vinhetas___gospel_club___02___avisos),
+    once(playlist_compartilhado___comerciais___vhts_entre_comerciais),
+    once(playlist_compartilhado___comerciais___anuncios),
+    once(playlist_compartilhado___comerciais___vhts_entre_comerciais),
+    once(playlist_compartilhado___comerciais___anuncios),
+    once(playlist_compartilhado___comerciais___volta_de_bloco),
+    once(playlist_vinhetas___gospel_club___01___abertura)
+  ]
+)
+
+gh_programa_super_sequencia = sequence([gh_entrada_super_sequencia, playlist_super_sequencia])
+gh_programa_classic_hits = sequence([gh_entrada_classic_hits, gh_classic_hits])
+gh_programa_gospel_beats = sequence([gh_entrada_gospel_beats, gh_gospel_beats])
+gh_programa_conexao_hits = sequence([gh_entrada_conexao_hits, gh_conexao_hits])
+gh_programa_hits_brasil = sequence([gh_entrada_hits_brasil, gh_hits_brasil])
+gh_programa_gospel_rock = sequence([gh_entrada_gospel_rock, gh_gospel_rock])
+gh_programa_pop_hits = sequence([gh_entrada_pop_hits, gh_pop_hits])
+gh_programa_ultimo_volume = sequence([gh_entrada_ultimo_volume, gh_ultimo_volume])
+gh_programa_gospel_club = sequence([gh_entrada_gospel_club, gh_gospel_club])
+
+# Grade semanal: o bloco de entrada toca antes de cada programa.
+# O switch e track-sensitive para nao cortar a musica anterior.
 gh_grade_semanal = switch(
   id="gh_grade_semanal",
   track_sensitive=true,
   [
-    ({12h-13h}, playlist_super_sequencia),
+    ({12h-13h}, gh_programa_super_sequencia),
 
-    ({(1w or 2w or 3w or 4w or 5w or 6w) and 13h-14h}, gh_classic_hits),
-    ({(1w or 2w or 3w or 4w or 5w or 6w) and 14h-15h}, gh_gospel_beats),
-    ({(1w or 2w or 3w or 4w or 5w or 6w) and 15h-17h}, gh_conexao_hits),
+    ({(1w or 2w or 3w or 4w or 5w or 6w) and 13h-14h}, gh_programa_classic_hits),
+    ({(1w or 2w or 3w or 4w or 5w or 6w) and 14h-15h}, gh_programa_gospel_beats),
+    ({(1w or 2w or 3w or 4w or 5w or 6w) and 15h-17h}, gh_programa_conexao_hits),
 
-    ({(1w or 2w or 3w or 4w or 5w) and 17h-18h}, gh_hits_brasil),
-    ({6w and 17h-18h}, gh_gospel_rock),
-    ({6w and 18h-21h}, gh_pop_hits),
+    ({(1w or 2w or 3w or 4w or 5w) and 17h-18h}, gh_programa_hits_brasil),
+    ({6w and 17h-18h}, gh_programa_gospel_rock),
+    ({6w and 18h-21h}, gh_programa_pop_hits),
 
-    ({(1w or 2w or 3w or 4w) and 21h-24h}, gh_ultimo_volume),
-    ({(5w or 6w) and 21h-24h}, gh_gospel_club)
+    ({(1w or 2w or 3w or 4w) and 21h-24h}, gh_programa_ultimo_volume),
+    ({(5w or 6w) and 21h-24h}, gh_programa_gospel_club)
   ]
 )
 
