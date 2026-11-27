@@ -449,6 +449,25 @@ gh_rotacao_geral = rotate(
   [gh_musica_com_ponte, gh_bloco_comercial]
 )
 
+# Encerramento dos programas que terminam a grade diaria.
+# predicate.activates garante uma unica execucao na virada para 00h;
+# depois do encerramento, a emissora volta para a rotacao geral.
+gh_fechamento_diario = switch(
+  id="gh_fechamento_diario",
+  track_sensitive=true,
+  [
+    (
+      predicate.activates({(1w or 2w or 3w or 4w) and 0h}),
+      once(playlist_vinhetas___ultimo_volume___05___encerramento)
+    ),
+    (
+      predicate.activates({(5w or 6w) and 0h}),
+      once(playlist_vinhetas___gospel_club___05___encerramento)
+    ),
+    ({true}, gh_rotacao_geral)
+  ]
+)
+
 # A grade e a rotacao comercial ficam abaixo das filas nativas:
 # AutoDJ, pedidos e interrupcoes continuam sendo aplicados pelo AzuraCast.
 radio = fallback(
@@ -456,7 +475,7 @@ radio = fallback(
   track_sensitive=true,
   [
     gh_grade_semanal,
-    gh_rotacao_geral
+    gh_fechamento_diario
   ]
 )
 
