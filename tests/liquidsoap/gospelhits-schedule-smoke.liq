@@ -1,32 +1,38 @@
-# Smoke test isolado da grade semanal da Rádio Gospel Hits.
-# Não acessa playlists, rede, Icecast, AutoDJ ou dados de produção.
-# Playlists substituídas por fontes blank() apenas para validar tipos e sintaxe.
+# Smoke test of the native-playlist integration hook.
+# blank() fixtures validate syntax/types only; no audio or station services start.
 
-pl_super_sequencia = blank()
-pl_classic_hits = blank()
-pl_gospel_beats = blank()
-pl_conexao_hits = blank()
-pl_hits_brasil = blank()
-pl_gospel_rock = blank()
-pl_pop_hits = blank()
-pl_ultimo_volume = blank()
-pl_gospel_club = blank()
+playlist_super_sequencia = blank()
+playlist_classic_hits = blank()
+playlist_gospel_beats = blank()
+playlist_conexao_hits = blank()
+playlist_hits_brasil = blank()
+playlist_gospel_rock = blank()
+playlist_pop_hits = blank()
+playlist_ultimo_volume = blank()
+playlist_gospel_club = blank()
+radio = blank()
 
-grade_gospelhits = switch(
+time.zone.set("America/Sao_Paulo")
+
+gh_grade_semanal = switch(
   id="gh_grade_semanal_smoke_test",
   track_sensitive=true,
   [
-    ({12h-13h}, pl_super_sequencia),
-    ({(1w or 2w or 3w or 4w or 5w or 6w) and 13h-14h}, pl_classic_hits),
-    ({(1w or 2w or 3w or 4w or 5w or 6w) and 14h-15h}, pl_gospel_beats),
-    ({(1w or 2w or 3w or 4w or 5w or 6w) and 15h-17h}, pl_conexao_hits),
-    ({(1w or 2w or 3w or 4w or 5w) and 17h-18h}, pl_hits_brasil),
-    ({6w and 17h-18h}, pl_gospel_rock),
-    ({6w and 18h-21h}, pl_pop_hits),
-    ({(1w or 2w or 3w or 4w) and 21h-24h}, pl_ultimo_volume),
-    ({(5w or 6w) and 21h-24h}, pl_gospel_club)
+    ({12h-13h}, playlist_super_sequencia),
+    ({(1w or 2w or 3w or 4w or 5w or 6w) and 13h-14h}, playlist_classic_hits),
+    ({(1w or 2w or 3w or 4w or 5w or 6w) and 14h-15h}, playlist_gospel_beats),
+    ({(1w or 2w or 3w or 4w or 5w or 6w) and 15h-17h}, playlist_conexao_hits),
+    ({(1w or 2w or 3w or 4w or 5w) and 17h-18h}, playlist_hits_brasil),
+    ({6w and 17h-18h}, playlist_gospel_rock),
+    ({6w and 18h-21h}, playlist_pop_hits),
+    ({(1w or 2w or 3w or 4w) and 21h-24h}, playlist_ultimo_volume),
+    ({(5w or 6w) and 21h-24h}, playlist_gospel_club)
   ]
 )
 
-# Mantem a grade como fonte verificavel sem iniciar transmissao.
-ignore(grade_gospelhits)
+radio = fallback(
+  id="gh_grade_com_rotacao_geral_test",
+  track_sensitive=true,
+  [gh_grade_semanal, radio]
+)
+ignore(radio)
