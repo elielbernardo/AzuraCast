@@ -84,7 +84,6 @@ gh_gospel_club = rotate(
 gh_entrada_super_sequencia = sequence(
   id="gh_entrada_super_sequencia",
   [
-    once(playlist_vinhetas___classic_hits___05___encerramento),
     once(playlist_compartilhado___comerciais___saida_de_bloco),
     once(playlist_compartilhado___comerciais___anuncios),
     once(playlist_vinhetas___super_sequencia___02___avisos),
@@ -212,7 +211,6 @@ gh_entrada_ultimo_volume = sequence(
 gh_entrada_gospel_club = sequence(
   id="gh_entrada_gospel_club",
   [
-    once(playlist_vinhetas___hits_brasil___05___encerramento),
     once(playlist_compartilhado___comerciais___saida_de_bloco),
     once(playlist_compartilhado___comerciais___anuncios),
     once(playlist_vinhetas___gospel_club___02___avisos),
