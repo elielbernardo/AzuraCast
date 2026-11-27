@@ -1,0 +1,26 @@
+name: Validate Liquidsoap 2.4.6
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-test:
+    name: Build dependencies and verify Liquidsoap 2.4.6
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - name: Checkout selected branch
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build AzuraCast pre-final image (no publish)
+        run: |
+          docker build --progress=plain --target pre-final --tag azuracast-liquidsoap-test:${GITHUB_SHA} .
+
+      - name: Confirm image was built
+        run: |
+          docker image inspect azuracast-liquidsoap-test:${GITHUB_SHA} --format '{{.Id}}'
