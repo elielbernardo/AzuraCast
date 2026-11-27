@@ -456,9 +456,6 @@ final class ConfigWriter implements EventSubscriberInterface
         // take priority over requests or interrupting requests.
         $this->writeCustomConfigurationSection($event, StationBackendConfiguration::CUSTOM_POST_PLAYLISTS);
 
-        // Station schedules are inserted after native playlist declarations and
-        // before AutoDJ/request queues, preserving native queue priority.
-        $this->writeCustomConfigurationSection($event, StationBackendConfiguration::CUSTOM_POST_PLAYLISTS);
 
         if (!$station->backend_config->use_manual_autodj) {
             $event->appendBlock(
