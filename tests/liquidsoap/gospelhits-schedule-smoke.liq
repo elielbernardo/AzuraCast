@@ -10,6 +10,7 @@ playlist_gospel_rock = blank()
 playlist_pop_hits = blank()
 playlist_ultimo_volume = blank()
 playlist_gospel_club = blank()
+playlist_vinhetas_pontes_28rotacao_geral29 = blank()
 
 playlist_compartilhado___comerciais___saida_de_bloco = blank()
 playlist_compartilhado___comerciais___anuncios = blank()
