@@ -30,52 +30,196 @@ gh_bloco_comercial = sequence(
 # A cada seis musicas, executa um bloco comercial.
 # Cada programa regular tem seu proprio contador; a Super Sequencia
 # e deliberadamente excluida desta rotacao.
+# Bloco comercial exclusivo deste programa: BREAK antes dos anuncios
+# e RETORNO depois da vinheta compartilhada de volta.
+gh_bloco_comercial_classic_hits = sequence(
+  id="gh_bloco_comercial_classic_hits",
+  merge=true,
+  [
+    once(playlist_vinhetas___classic_hits___03___break),
+    once(playlist_compartilhado___comerciais___saida_de_bloco),
+    once(playlist_compartilhado___comerciais___anuncios),
+    once(playlist_compartilhado___comerciais___vhts_entre_comerciais),
+    once(playlist_compartilhado___comerciais___anuncios),
+    once(playlist_compartilhado___comerciais___vhts_entre_comerciais),
+    once(playlist_compartilhado___comerciais___anuncios),
+    once(playlist_compartilhado___comerciais___volta_de_bloco),
+    once(playlist_vinhetas___classic_hits___04___retorno)
+  ]
+)
+
 gh_classic_hits = rotate(
   id="gh_rotacao_classic_hits",
   weights=[6, 1],
-  [playlist_classic_hits, gh_bloco_comercial]
+  [playlist_classic_hits, gh_bloco_comercial_classic_hits]
+)
+
+# Bloco comercial exclusivo deste programa: BREAK antes dos anuncios
+# e RETORNO depois da vinheta compartilhada de volta.
+gh_bloco_comercial_gospel_beats = sequence(
+  id="gh_bloco_comercial_gospel_beats",
+  merge=true,
+  [
+    once(playlist_vinhetas___gospel_beats___03___break),
+    once(playlist_compartilhado___comerciais___saida_de_bloco),
+    once(playlist_compartilhado___comerciais___anuncios),
+    once(playlist_compartilhado___comerciais___vhts_entre_comerciais),
+    once(playlist_compartilhado___comerciais___anuncios),
+    once(playlist_compartilhado___comerciais___vhts_entre_comerciais),
+    once(playlist_compartilhado___comerciais___anuncios),
+    once(playlist_compartilhado___comerciais___volta_de_bloco),
+    once(playlist_vinhetas___gospel_beats___04___retorno)
+  ]
 )
 
 gh_gospel_beats = rotate(
   id="gh_rotacao_gospel_beats",
   weights=[6, 1],
-  [playlist_gospel_beats, gh_bloco_comercial]
+  [playlist_gospel_beats, gh_bloco_comercial_gospel_beats]
+)
+
+# Bloco comercial exclusivo deste programa: BREAK antes dos anuncios
+# e RETORNO depois da vinheta compartilhada de volta.
+gh_bloco_comercial_conexao_hits = sequence(
+  id="gh_bloco_comercial_conexao_hits",
+  merge=true,
+  [
+    once(playlist_vinhetas___conexao_hits___03___break),
+    once(playlist_compartilhado___comerciais___saida_de_bloco),
+    once(playlist_compartilhado___comerciais___anuncios),
+    once(playlist_compartilhado___comerciais___vhts_entre_comerciais),
+    once(playlist_compartilhado___comerciais___anuncios),
+    once(playlist_compartilhado___comerciais___vhts_entre_comerciais),
+    once(playlist_compartilhado___comerciais___anuncios),
+    once(playlist_compartilhado___comerciais___volta_de_bloco),
+    once(playlist_vinhetas___conexao_hits___04___retorno)
+  ]
 )
 
 gh_conexao_hits = rotate(
   id="gh_rotacao_conexao_hits",
   weights=[6, 1],
-  [playlist_conexao_hits, gh_bloco_comercial]
+  [playlist_conexao_hits, gh_bloco_comercial_conexao_hits]
+)
+
+# Bloco comercial exclusivo deste programa: BREAK antes dos anuncios
+# e RETORNO depois da vinheta compartilhada de volta.
+gh_bloco_comercial_hits_brasil = sequence(
+  id="gh_bloco_comercial_hits_brasil",
+  merge=true,
+  [
+    once(playlist_vinhetas___hits_brasil___03___break),
+    once(playlist_compartilhado___comerciais___saida_de_bloco),
+    once(playlist_compartilhado___comerciais___anuncios),
+    once(playlist_compartilhado___comerciais___vhts_entre_comerciais),
+    once(playlist_compartilhado___comerciais___anuncios),
+    once(playlist_compartilhado___comerciais___vhts_entre_comerciais),
+    once(playlist_compartilhado___comerciais___anuncios),
+    once(playlist_compartilhado___comerciais___volta_de_bloco),
+    once(playlist_vinhetas___hits_brasil___04___retorno)
+  ]
 )
 
 gh_hits_brasil = rotate(
   id="gh_rotacao_hits_brasil",
   weights=[6, 1],
-  [playlist_hits_brasil, gh_bloco_comercial]
+  [playlist_hits_brasil, gh_bloco_comercial_hits_brasil]
+)
+
+# Bloco comercial exclusivo deste programa: BREAK antes dos anuncios
+# e RETORNO depois da vinheta compartilhada de volta.
+gh_bloco_comercial_gospel_rock = sequence(
+  id="gh_bloco_comercial_gospel_rock",
+  merge=true,
+  [
+    once(playlist_vinhetas___gospel_rock___03___break),
+    once(playlist_compartilhado___comerciais___saida_de_bloco),
+    once(playlist_compartilhado___comerciais___anuncios),
+    once(playlist_compartilhado___comerciais___vhts_entre_comerciais),
+    once(playlist_compartilhado___comerciais___anuncios),
+    once(playlist_compartilhado___comerciais___vhts_entre_comerciais),
+    once(playlist_compartilhado___comerciais___anuncios),
+    once(playlist_compartilhado___comerciais___volta_de_bloco),
+    once(playlist_vinhetas___gospel_rock___04___retorno)
+  ]
 )
 
 gh_gospel_rock = rotate(
   id="gh_rotacao_gospel_rock",
   weights=[6, 1],
-  [playlist_gospel_rock, gh_bloco_comercial]
+  [playlist_gospel_rock, gh_bloco_comercial_gospel_rock]
+)
+
+# Bloco comercial exclusivo deste programa: BREAK antes dos anuncios
+# e RETORNO depois da vinheta compartilhada de volta.
+gh_bloco_comercial_pop_hits = sequence(
+  id="gh_bloco_comercial_pop_hits",
+  merge=true,
+  [
+    once(playlist_vinhetas___pop_hits___03___break),
+    once(playlist_compartilhado___comerciais___saida_de_bloco),
+    once(playlist_compartilhado___comerciais___anuncios),
+    once(playlist_compartilhado___comerciais___vhts_entre_comerciais),
+    once(playlist_compartilhado___comerciais___anuncios),
+    once(playlist_compartilhado___comerciais___vhts_entre_comerciais),
+    once(playlist_compartilhado___comerciais___anuncios),
+    once(playlist_compartilhado___comerciais___volta_de_bloco),
+    once(playlist_vinhetas___pop_hits___04___retorno)
+  ]
 )
 
 gh_pop_hits = rotate(
   id="gh_rotacao_pop_hits",
   weights=[6, 1],
-  [playlist_pop_hits, gh_bloco_comercial]
+  [playlist_pop_hits, gh_bloco_comercial_pop_hits]
+)
+
+# Bloco comercial exclusivo deste programa: BREAK antes dos anuncios
+# e RETORNO depois da vinheta compartilhada de volta.
+gh_bloco_comercial_ultimo_volume = sequence(
+  id="gh_bloco_comercial_ultimo_volume",
+  merge=true,
+  [
+    once(playlist_vinhetas___ultimo_volume___03___break),
+    once(playlist_compartilhado___comerciais___saida_de_bloco),
+    once(playlist_compartilhado___comerciais___anuncios),
+    once(playlist_compartilhado___comerciais___vhts_entre_comerciais),
+    once(playlist_compartilhado___comerciais___anuncios),
+    once(playlist_compartilhado___comerciais___vhts_entre_comerciais),
+    once(playlist_compartilhado___comerciais___anuncios),
+    once(playlist_compartilhado___comerciais___volta_de_bloco),
+    once(playlist_vinhetas___ultimo_volume___04___retorno)
+  ]
 )
 
 gh_ultimo_volume = rotate(
   id="gh_rotacao_ultimo_volume",
   weights=[6, 1],
-  [playlist_ultimo_volume, gh_bloco_comercial]
+  [playlist_ultimo_volume, gh_bloco_comercial_ultimo_volume]
+)
+
+# Bloco comercial exclusivo deste programa: BREAK antes dos anuncios
+# e RETORNO depois da vinheta compartilhada de volta.
+gh_bloco_comercial_gospel_club = sequence(
+  id="gh_bloco_comercial_gospel_club",
+  merge=true,
+  [
+    once(playlist_vinhetas___gospel_club___03___break),
+    once(playlist_compartilhado___comerciais___saida_de_bloco),
+    once(playlist_compartilhado___comerciais___anuncios),
+    once(playlist_compartilhado___comerciais___vhts_entre_comerciais),
+    once(playlist_compartilhado___comerciais___anuncios),
+    once(playlist_compartilhado___comerciais___vhts_entre_comerciais),
+    once(playlist_compartilhado___comerciais___anuncios),
+    once(playlist_compartilhado___comerciais___volta_de_bloco),
+    once(playlist_vinhetas___gospel_club___04___retorno)
+  ]
 )
 
 gh_gospel_club = rotate(
   id="gh_rotacao_gospel_club",
   weights=[6, 1],
-  [playlist_gospel_club, gh_bloco_comercial]
+  [playlist_gospel_club, gh_bloco_comercial_gospel_club]
 )
 
 # Blocos de entrada: o horario da grade e o horario previsto.
