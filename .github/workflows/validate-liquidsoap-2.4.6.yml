@@ -56,6 +56,7 @@ jobs:
         run: |
           docker run --rm \
             --volume "$GITHUB_WORKSPACE/tests/liquidsoap:/tests:ro" \
+            --volume "$GITHUB_WORKSPACE/util/docker/stations/liquidsoap:/schedule:ro" \
             --entrypoint liquidsoap \
             azuracast-liquidsoap-test:${GITHUB_SHA} \
             --check /tests/gospelhits-schedule-smoke.liq
