@@ -247,6 +247,7 @@ gh_entrada_classic_hits = sequence(
   merge=true,
   [
     once(playlist_vinhetas___super_sequencia___05___encerramento),
+    once(playlist_vinhetas___super_sequencia___03___break),
     once(playlist_compartilhado___comerciais___saida_de_bloco),
     once(playlist_compartilhado___comerciais___anuncios),
     once(playlist_vinhetas___classic_hits___02___avisos),
@@ -255,6 +256,7 @@ gh_entrada_classic_hits = sequence(
     once(playlist_compartilhado___comerciais___vhts_entre_comerciais),
     once(playlist_compartilhado___comerciais___anuncios),
     once(playlist_compartilhado___comerciais___volta_de_bloco),
+    once(playlist_vinhetas___super_sequencia___04___retorno),
     once(playlist_vinhetas___classic_hits___01___abertura)
   ]
 )
