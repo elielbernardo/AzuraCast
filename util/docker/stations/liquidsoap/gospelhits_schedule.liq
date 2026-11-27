@@ -15,6 +15,7 @@ time.zone.set("America/Sao_Paulo")
 # de anuncios indefinidamente dentro do mesmo bloco.
 gh_bloco_comercial = sequence(
   id="gh_bloco_comercial",
+  merge=true,
   [
     once(playlist_compartilhado___comerciais___saida_de_bloco),
     once(playlist_compartilhado___comerciais___anuncios),
@@ -83,6 +84,7 @@ gh_gospel_club = rotate(
 # Cada aviso toca imediatamente apos o primeiro anuncio do bloco.
 gh_entrada_super_sequencia = sequence(
   id="gh_entrada_super_sequencia",
+  merge=true,
   [
     once(playlist_compartilhado___comerciais___saida_de_bloco),
     once(playlist_compartilhado___comerciais___anuncios),
@@ -98,6 +100,7 @@ gh_entrada_super_sequencia = sequence(
 
 gh_entrada_classic_hits = sequence(
   id="gh_entrada_classic_hits",
+  merge=true,
   [
     once(playlist_vinhetas___super_sequencia___05___encerramento),
     once(playlist_compartilhado___comerciais___saida_de_bloco),
@@ -114,6 +117,7 @@ gh_entrada_classic_hits = sequence(
 
 gh_entrada_gospel_beats = sequence(
   id="gh_entrada_gospel_beats",
+  merge=true,
   [
     once(playlist_vinhetas___classic_hits___05___encerramento),
     once(playlist_compartilhado___comerciais___saida_de_bloco),
@@ -130,6 +134,7 @@ gh_entrada_gospel_beats = sequence(
 
 gh_entrada_conexao_hits = sequence(
   id="gh_entrada_conexao_hits",
+  merge=true,
   [
     once(playlist_vinhetas___gospel_beats___05___encerramento),
     once(playlist_compartilhado___comerciais___saida_de_bloco),
@@ -146,6 +151,7 @@ gh_entrada_conexao_hits = sequence(
 
 gh_entrada_hits_brasil = sequence(
   id="gh_entrada_hits_brasil",
+  merge=true,
   [
     once(playlist_vinhetas___conexao_hits___05___encerramento),
     once(playlist_compartilhado___comerciais___saida_de_bloco),
@@ -162,6 +168,7 @@ gh_entrada_hits_brasil = sequence(
 
 gh_entrada_gospel_rock = sequence(
   id="gh_entrada_gospel_rock",
+  merge=true,
   [
     once(playlist_vinhetas___conexao_hits___05___encerramento),
     once(playlist_compartilhado___comerciais___saida_de_bloco),
@@ -178,6 +185,7 @@ gh_entrada_gospel_rock = sequence(
 
 gh_entrada_pop_hits = sequence(
   id="gh_entrada_pop_hits",
+  merge=true,
   [
     once(playlist_vinhetas___gospel_rock___05___encerramento),
     once(playlist_compartilhado___comerciais___saida_de_bloco),
@@ -194,6 +202,7 @@ gh_entrada_pop_hits = sequence(
 
 gh_entrada_ultimo_volume = sequence(
   id="gh_entrada_ultimo_volume",
+  merge=true,
   [
     once(playlist_vinhetas___conexao_hits___05___encerramento),
     once(playlist_compartilhado___comerciais___saida_de_bloco),
@@ -210,6 +219,7 @@ gh_entrada_ultimo_volume = sequence(
 
 gh_entrada_gospel_club = sequence(
   id="gh_entrada_gospel_club",
+  merge=true,
   [
     once(playlist_compartilhado___comerciais___saida_de_bloco),
     once(playlist_compartilhado___comerciais___anuncios),
