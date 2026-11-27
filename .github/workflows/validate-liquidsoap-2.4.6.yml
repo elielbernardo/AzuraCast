@@ -28,3 +28,16 @@ jobs:
       - name: Confirm image was built
         run: |
           docker image inspect azuracast-liquidsoap-test:${GITHUB_SHA} --format '{{.Id}}'
+
+      - name: Verify Liquidsoap version inside built image
+        run: |
+          docker run --rm --entrypoint liquidsoap azuracast-liquidsoap-test:${GITHUB_SHA} --version | tee /tmp/liquidsoap-version.txt
+          grep -qE '(^|[^0-9])2\.4\.6([^0-9]|$)' /tmp/liquidsoap-version.txt
+
+      - name: Type-check isolated Gospel Hits weekly schedule
+        run: |
+          docker run --rm \
+            --volume "$GITHUB_WORKSPACE/tests/liquidsoap:/tests:ro" \
+            --entrypoint liquidsoap \
+            azuracast-liquidsoap-test:${GITHUB_SHA} \
+            --check /tests/gospelhits-schedule-smoke.liq
