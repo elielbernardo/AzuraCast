@@ -1,5 +1,9 @@
 name: Validate Liquidsoap 2.4.6
+
 on:
+  push:
+    branches:
+      - feature/gospelhits-liquidsoap-integration
   workflow_dispatch:
 
 permissions:
