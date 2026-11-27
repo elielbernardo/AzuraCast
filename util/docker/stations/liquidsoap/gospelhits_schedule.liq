@@ -350,7 +350,7 @@ gh_entrada_ultimo_volume = sequence(
   id="gh_entrada_ultimo_volume",
   merge=true,
   [
-    once(playlist_vinhetas___conexao_hits___05___encerramento),
+    # 18h-21h e rotacao geral; nao ha encerramento da Conexao Hits aqui.
     once(playlist_compartilhado___comerciais___saida_de_bloco),
     once(playlist_compartilhado___comerciais___anuncios),
     once(playlist_vinhetas___ultimo_volume___02___avisos),
@@ -367,6 +367,25 @@ gh_entrada_gospel_club = sequence(
   id="gh_entrada_gospel_club",
   merge=true,
   [
+    # Na sexta-feira, 18h-21h e rotacao geral; nao ha programa anterior.
+    once(playlist_compartilhado___comerciais___saida_de_bloco),
+    once(playlist_compartilhado___comerciais___anuncios),
+    once(playlist_vinhetas___gospel_club___02___avisos),
+    once(playlist_compartilhado___comerciais___vhts_entre_comerciais),
+    once(playlist_compartilhado___comerciais___anuncios),
+    once(playlist_compartilhado___comerciais___vhts_entre_comerciais),
+    once(playlist_compartilhado___comerciais___anuncios),
+    once(playlist_compartilhado___comerciais___volta_de_bloco),
+    once(playlist_vinhetas___gospel_club___01___abertura)
+  ]
+)
+
+# No sabado, o Gospel Club recebe o encerramento do Pop Hits.
+gh_entrada_gospel_club_sabado = sequence(
+  id="gh_entrada_gospel_club_sabado",
+  merge=true,
+  [
+    once(playlist_vinhetas___pop_hits___05___encerramento),
     once(playlist_compartilhado___comerciais___saida_de_bloco),
     once(playlist_compartilhado___comerciais___anuncios),
     once(playlist_vinhetas___gospel_club___02___avisos),
@@ -388,6 +407,7 @@ gh_programa_gospel_rock = sequence([gh_entrada_gospel_rock, gh_gospel_rock])
 gh_programa_pop_hits = sequence([gh_entrada_pop_hits, gh_pop_hits])
 gh_programa_ultimo_volume = sequence([gh_entrada_ultimo_volume, gh_ultimo_volume])
 gh_programa_gospel_club = sequence([gh_entrada_gospel_club, gh_gospel_club])
+gh_programa_gospel_club_sabado = sequence([gh_entrada_gospel_club_sabado, gh_gospel_club])
 
 # Grade semanal: o bloco de entrada toca antes de cada programa.
 # O switch e track-sensitive para nao cortar a musica anterior.
@@ -406,7 +426,8 @@ gh_grade_semanal = switch(
     ({6w and 18h-21h}, gh_programa_pop_hits),
 
     ({(1w or 2w or 3w or 4w) and 21h-24h}, gh_programa_ultimo_volume),
-    ({(5w or 6w) and 21h-24h}, gh_programa_gospel_club)
+    ({5w and 21h-24h}, gh_programa_gospel_club),
+    ({6w and 21h-24h}, gh_programa_gospel_club_sabado)
   ]
 )
 
