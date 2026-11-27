@@ -944,13 +944,36 @@ final class ConfigWriter implements EventSubscriberInterface
             return;
         }
 
+        $station = $event->getStation();
+
+        // Gospel Hits' weekly schedule is maintained in Git and shipped with
+        // the AzuraCast image. Load it after native playlists are declared,
+        // regardless of the user-custom-configuration setting.
+        if (
+            $sectionName === StationBackendConfiguration::CUSTOM_POST_PLAYLISTS
+            && $station->short_name === 'gospelhits'
+        ) {
+            $schedulePath = '/var/azuracast/liquidsoap/gospelhits_schedule.liq';
+            if (!is_file($schedulePath) || !is_readable($schedulePath)) {
+                throw new RuntimeException(
+                    'The versioned Gospel Hits Liquidsoap schedule is missing or unreadable: ' . $schedulePath
+                );
+            }
+
+            $event->appendLines([
+                '# Gospel Hits weekly schedule (versioned in Git)',
+                '%include "' . $schedulePath . '"',
+            ]);
+            return;
+        }
+
         // If LS editing is disabled, don't add custom blocks to the written code.
         $settings = $this->settingsRepo->readSettings();
         if (!$settings->enable_liquidsoap_editing) {
             return;
         }
 
-        $backendConfig = $event->getStation()->backend_config;
+        $backendConfig = $station->backend_config;
         $customConfig = $backendConfig->getCustomConfigurationSection($sectionName);
 
         if (!empty($customConfig)) {
