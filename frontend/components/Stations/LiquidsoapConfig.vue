@@ -130,6 +130,7 @@ const importUrl = getStationApiUrl("/liquidsoap-config/import");
 type ConfigSectionNames =
     | "custom_config_top"
     | "custom_config_pre_playlists"
+    | "custom_config_post_playlists"
     | "custom_config_pre_live"
     | "custom_config_pre_fade"
     | "custom_config"
@@ -159,6 +160,7 @@ const { record: form, reset: resetForm } = useResettableRef<ConfigSections>(
     () => ({
         custom_config_top: null,
         custom_config_pre_playlists: null,
+        custom_config_post_playlists: null,
         custom_config_pre_live: null,
         custom_config_pre_fade: null,
         custom_config: null,
