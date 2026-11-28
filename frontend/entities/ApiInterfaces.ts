@@ -1320,6 +1320,11 @@ export interface ApiStationPlaylistParentGroup {
      */
     name: string;
 }
+    /**
+     * Whether this group or any of its parent groups avoids duplicate artists/titles.
+     */
+    avoids_duplicates: boolean;
+
 
 export interface ApiStationPlaylistQueue {
     /**
