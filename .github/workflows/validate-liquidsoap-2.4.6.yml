@@ -6,6 +6,7 @@ on:
       - integration/upstream-2026-11-28-gospelhits
       - feature/gospelhits-liquidsoap-integration
       - fix/gospelhits-playlist-source-types
+      - fix/gospelhits-commercial-rotation-20261128
   workflow_dispatch:
 
 permissions:
