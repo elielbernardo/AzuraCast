@@ -9,7 +9,9 @@
         @hidden="clearContents"
     >
         <tabs ref="$tabs">
-            <form-basic-info/>
+            <form-basic-info
+                :avoids-duplicates-through-groups="isEditMode && avoidsDuplicatesThroughGroups"
+            />
             <form-schedule v-model:schedule-items="form.schedule_items" />
             <playlist-link-list-tab
                 v-if="isEditMode && form.source === PlaylistSources.Playlists"
@@ -56,6 +58,7 @@ import FormSchedule from "~/components/Stations/Playlists/Form/Schedule.vue";
 import { PlaylistSources } from "~/entities/ApiInterfaces";
 import {
     PlaylistBreadcrumb,
+    PlaylistParentGroup,
     StationPlaylistEnriched,
 } from "~/entities/StationPlaylist.ts";
 import mergeExisting from "~/functions/mergeExisting.ts";
@@ -63,6 +66,7 @@ import { useApiRouter } from "~/functions/useApiRouter.ts";
 import {
     BaseEditModalEmits,
     BaseEditModalProps,
+    ModalFormTemplateRef,
     useBaseEditModal,
 } from "~/functions/useBaseEditModal";
 import { useTranslate } from "~/vendor/gettext";
@@ -72,7 +76,7 @@ const props = defineProps<BaseEditModalProps>();
 
 const emit = defineEmits<BaseEditModalEmits & ((e: "needs-restart") => void)>();
 
-const $modal = useTemplateRef("$modal");
+const $modal = useTemplateRef<ModalFormTemplateRef | null>("$modal");
 
 const { notifySuccess } = useNotify();
 
@@ -82,8 +86,12 @@ const { $reset: resetForm } = formStore;
 
 const { r$: validatedr$ } = useAppCollectScope("stations-playlists");
 
-const playlistGroups = ref<PlaylistBreadcrumb[]>([]);
+const playlistGroups = ref<PlaylistParentGroup[]>([]);
 const playlistMembers = ref<PlaylistBreadcrumb[]>([]);
+
+const avoidsDuplicatesThroughGroups = computed(() =>
+    playlistGroups.value.some((group) => group.avoids_duplicates),
+);
 
 const {
     loading,

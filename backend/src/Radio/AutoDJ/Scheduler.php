@@ -154,7 +154,7 @@ final class Scheduler
 
     /**
      * Determine whether a playlist that is a member of one or more groups is covered by an
-     * ancestor-group chain whose schedule is active at the given instant. While covered, the
+     * enabled ancestor-group chain whose schedule is active at the given instant. While covered, the
      * playlist plays via its group and is suppressed from the general rotation.
      */
     public function isPlaylistCoveredByGroupScheduleAt(
@@ -188,9 +188,9 @@ final class Scheduler
     }
 
     /**
-     * Walk up one membership chain and return whether every group in it is schedule-active
-     * at the given instant. Groups without schedule items count as always active, matching
-     * isPlaylistScheduledToPlayNow.
+     * Walk up one membership chain and return whether every group in it is enabled and
+     * schedule-active at the given instant. Groups without schedule items count as always
+     * active, the same as any playlist without a schedule.
      *
      * @param int[] $visitedIdsInChain
      */
@@ -199,7 +199,7 @@ final class Scheduler
         DateTimeImmutable $now,
         array $visitedIdsInChain = []
     ): bool {
-        if (in_array($group->id, $visitedIdsInChain, true)) {
+        if (!$group->is_enabled || in_array($group->id, $visitedIdsInChain, true)) {
             return false;
         }
 
@@ -580,67 +580,49 @@ final class Scheduler
     }
 
     /**
-     * Determines if a schedule entity should play on the current date.
+     * Return the time windows of a schedule entity that overlap the given date range.
+     *
+     * Start/end dates and selected days apply to the day a window starts.
      *
      * Note: This function is timezone-sensitive and thus requires an explicit TZ be provided. This is
      * normally the station's timezone.
      *
-     * @param StationSchedule $schedule
-     * @param DateTimeZone $tz
-     * @param DateTimeImmutable|null $now
-     * @return bool
+     * @return DateRange[]
      */
-    public function shouldSchedulePlayOnCurrentDate(
+    public function getScheduleWindowsInRange(
         StationSchedule $schedule,
         DateTimeZone $tz,
-        ?DateTimeImmutable $now = null
-    ): bool {
-        $now = CarbonImmutable::instance(Time::nowInTimezone($tz, $now));
+        DateRange $dateRange
+    ): array {
+        $windows = [];
 
-        $startDate = $schedule->start_date;
-        $endDate = $schedule->end_date;
+        // Start one day early to include overnight windows that run into the date range.
+        $firstDay = $dateRange->start->setTimezone($tz)->subDay()->startOf('day');
+        $lastDay = $dateRange->end->setTimezone($tz)->endOf('day');
 
-        if (!empty($startDate)) {
-            $startDate = CarbonImmutable::createFromFormat('Y-m-d', $startDate, $tz);
+        for ($day = $firstDay; $day <= $lastDay; $day = $day->addDay()) {
+            if (
+                !$this->isScheduleDateInRange($schedule, $day)
+                || !$this->isScheduleScheduledToPlayToday($schedule, $day->dayOfWeekIso)
+            ) {
+                continue;
+            }
 
-            if (null !== $startDate) {
-                $startDate = StationSchedule::getDateTime(
-                    $schedule->start_time,
-                    $tz,
-                    $startDate
-                );
+            $start = StationSchedule::getDateTime($schedule->start_time, $tz, $day);
+            $end = StationSchedule::getDateTime($schedule->end_time, $tz, $day);
 
-                if ($now->endOfDay()->lt($startDate)) {
-                    return false;
-                }
+            // Overnight windows end on the following day.
+            if ($end < $start) {
+                $end = $end->addDay();
+            }
+
+            $window = new DateRange($start, $end);
+            if ($window->isWithin($dateRange)) {
+                $windows[] = $window;
             }
         }
 
-        if (!empty($endDate)) {
-            $endDate = CarbonImmutable::createFromFormat('Y-m-d', $endDate, $tz);
-
-            if (null !== $endDate) {
-                $isOvernightSchedule = $schedule->start_time > $schedule->end_time;
-
-                // For overnight schedules where start_date == end_date,
-                // the end_time actually occurs on the next day
-                if ($isOvernightSchedule && $schedule->start_date === $schedule->end_date) {
-                    $endDate = $endDate->addDay();
-                }
-
-                $endDate = StationSchedule::getDateTime(
-                    $schedule->end_time,
-                    $tz,
-                    $endDate
-                );
-
-                if ($now->startOfDay()->gt($endDate)) {
-                    return false;
-                }
-            }
-        }
-
-        return true;
+        return $windows;
     }
 
     /**

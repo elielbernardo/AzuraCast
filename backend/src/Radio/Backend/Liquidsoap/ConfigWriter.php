@@ -973,7 +973,7 @@ final class ConfigWriter implements EventSubscriberInterface
             return;
         }
 
-        $backendConfig = $station->backend_config;
+        $backendConfig = $event->getStation()->backend_config;
         $customConfig = $backendConfig->getCustomConfigurationSection($sectionName);
 
         if (!empty($customConfig)) {

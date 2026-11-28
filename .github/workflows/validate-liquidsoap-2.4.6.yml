@@ -3,6 +3,7 @@ name: Validate Liquidsoap 2.4.6
 on:
   push:
     branches:
+      - integration/upstream-2026-11-28-gospelhits
       - feature/gospelhits-liquidsoap-integration
   workflow_dispatch:
 

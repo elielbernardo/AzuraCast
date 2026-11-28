@@ -5,7 +5,7 @@ info:
   license:
     name: 'GNU Affero General Public License v3.0 or later'
     url: 'https://www.gnu.org/licenses/agpl-3.0.txt'
-  version: 0.24.0
+  version: 0.24.1
 servers:
   -
     url: 'https://demo.azuracast.com/api'
@@ -3879,7 +3879,7 @@ paths:
     put:
       tags:
         - 'Stations: Playlists'
-      summary: 'Re-shuffle a playlist whose playback order is "shuffled".'
+      summary: 'Re-shuffle a shuffled playlist or restart a sequential playlist from the top.'
       operationId: putReshufflePlaylist
       parameters:
         -
@@ -6656,12 +6656,10 @@ components:
           type: string
         context:
           type: array
-          items:
-            type: '{}'
+          items: {}
         extra:
           type: array
-          items:
-            type: '{}'
+          items: {}
         formatted:
           type: '{}'
       type: object
@@ -7428,8 +7426,7 @@ components:
         extra_data:
           description: 'Stack traces and other supplemental data.'
           type: array
-          items:
-            type: any
+          items: {}
         success:
           description: 'Used for API calls that expect an \Entity\Api\Status type response.'
           type: boolean
@@ -7645,8 +7642,7 @@ components:
                 type: string
             responseRecord:
               type: array
-              items:
-                type: any
+              items: {}
               nullable: true
           type: object
     Api_Notification:
@@ -8433,6 +8429,7 @@ components:
       required:
         - id
         - name
+        - avoids_duplicates
       properties:
         id:
           description: 'The unique identifier of the parent group.'
@@ -8442,6 +8439,10 @@ components:
           description: 'The name of the parent group.'
           type: string
           example: 'My Group'
+        avoids_duplicates:
+          description: 'Whether this group or any group it is nested in has "Avoid Duplicate Artists/Titles" enabled.'
+          type: boolean
+          example: true
       type: object
     Api_StationPlaylistQueue:
       properties:
@@ -8506,8 +8507,7 @@ components:
             log:
               description: 'Log entries on how the specific queue item was picked by the AutoDJ.'
               type: array
-              items:
-                type: any
+              items: {}
               nullable: true
           type: object
     Api_StationQuota:
@@ -9212,8 +9212,7 @@ components:
             $ref: '#/components/schemas/Api_ToastNotification'
         componentProps:
           type: array
-          items:
-            type: '{}'
+          items: {}
           nullable: true
       type: object
     Vue_DashboardGlobals:
