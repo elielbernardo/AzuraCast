@@ -10,6 +10,15 @@
 
 time.zone.set("America/Sao_Paulo")
 
+# Converte uma playlist request-based em uma source Liquidsoap comum,
+# remontando todas as trilhas (audio, metadata e track_marks).
+# Isso preserva os metadados da musica e evita expor queue:[request]
+# dentro de operadores que combinam fontes heterogeneas.
+def gh_source(s) =
+  let {audio, metadata, track_marks} = source.tracks(s)
+  source({audio=audio, metadata=metadata, track_marks=track_marks})
+end
+
 # Um bloco comercial completo. once() limita cada playlist a uma faixa
 # por passagem, permitindo a composicao sequencial sem repetir a playlist
 # de anuncios indefinidamente dentro do mesmo bloco.
@@ -51,7 +60,7 @@ gh_bloco_comercial_classic_hits = sequence(
 gh_classic_hits = rotate(
   id="gh_rotacao_classic_hits",
   weights=[6, 1],
-  [playlist_classic_hits, gh_bloco_comercial_classic_hits]
+  [gh_source(playlist_classic_hits), gh_bloco_comercial_classic_hits]
 )
 
 # Bloco comercial exclusivo deste programa: BREAK antes dos anuncios
@@ -75,7 +84,7 @@ gh_bloco_comercial_gospel_beats = sequence(
 gh_gospel_beats = rotate(
   id="gh_rotacao_gospel_beats",
   weights=[6, 1],
-  [playlist_gospel_beats, gh_bloco_comercial_gospel_beats]
+  [gh_source(playlist_gospel_beats), gh_bloco_comercial_gospel_beats]
 )
 
 # Bloco comercial exclusivo deste programa: BREAK antes dos anuncios
@@ -99,7 +108,7 @@ gh_bloco_comercial_conexao_hits = sequence(
 gh_conexao_hits = rotate(
   id="gh_rotacao_conexao_hits",
   weights=[6, 1],
-  [playlist_conexao_hits, gh_bloco_comercial_conexao_hits]
+  [gh_source(playlist_conexao_hits), gh_bloco_comercial_conexao_hits]
 )
 
 # Bloco comercial exclusivo deste programa: BREAK antes dos anuncios
@@ -123,7 +132,7 @@ gh_bloco_comercial_hits_brasil = sequence(
 gh_hits_brasil = rotate(
   id="gh_rotacao_hits_brasil",
   weights=[6, 1],
-  [playlist_hits_brasil, gh_bloco_comercial_hits_brasil]
+  [gh_source(playlist_hits_brasil), gh_bloco_comercial_hits_brasil]
 )
 
 # Bloco comercial exclusivo deste programa: BREAK antes dos anuncios
@@ -147,7 +156,7 @@ gh_bloco_comercial_gospel_rock = sequence(
 gh_gospel_rock = rotate(
   id="gh_rotacao_gospel_rock",
   weights=[6, 1],
-  [playlist_gospel_rock, gh_bloco_comercial_gospel_rock]
+  [gh_source(playlist_gospel_rock), gh_bloco_comercial_gospel_rock]
 )
 
 # Bloco comercial exclusivo deste programa: BREAK antes dos anuncios
@@ -171,7 +180,7 @@ gh_bloco_comercial_pop_hits = sequence(
 gh_pop_hits = rotate(
   id="gh_rotacao_pop_hits",
   weights=[6, 1],
-  [playlist_pop_hits, gh_bloco_comercial_pop_hits]
+  [gh_source(playlist_pop_hits), gh_bloco_comercial_pop_hits]
 )
 
 # Bloco comercial exclusivo deste programa: BREAK antes dos anuncios
@@ -195,7 +204,7 @@ gh_bloco_comercial_ultimo_volume = sequence(
 gh_ultimo_volume = rotate(
   id="gh_rotacao_ultimo_volume",
   weights=[6, 1],
-  [playlist_ultimo_volume, gh_bloco_comercial_ultimo_volume]
+  [gh_source(playlist_ultimo_volume), gh_bloco_comercial_ultimo_volume]
 )
 
 # Bloco comercial exclusivo deste programa: BREAK antes dos anuncios
@@ -219,7 +228,7 @@ gh_bloco_comercial_gospel_club = sequence(
 gh_gospel_club = rotate(
   id="gh_rotacao_gospel_club",
   weights=[6, 1],
-  [playlist_gospel_club, gh_bloco_comercial_gospel_club]
+  [gh_source(playlist_gospel_club), gh_bloco_comercial_gospel_club]
 )
 
 # Blocos de entrada: o horario da grade e o horario previsto.
@@ -398,7 +407,7 @@ gh_entrada_gospel_club_sabado = sequence(
   ]
 )
 
-gh_programa_super_sequencia = sequence([gh_entrada_super_sequencia, playlist_super_sequencia])
+gh_programa_super_sequencia = sequence([gh_entrada_super_sequencia, gh_source(playlist_super_sequencia)])
 gh_programa_classic_hits = sequence([gh_entrada_classic_hits, gh_classic_hits])
 gh_programa_gospel_beats = sequence([gh_entrada_gospel_beats, gh_gospel_beats])
 gh_programa_conexao_hits = sequence([gh_entrada_conexao_hits, gh_conexao_hits])
