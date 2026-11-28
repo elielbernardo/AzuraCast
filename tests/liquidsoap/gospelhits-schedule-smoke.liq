@@ -1,6 +1,8 @@
 # Smoke test of the exact versioned Gospel Hits schedule.
 # Native AzuraCast song playlists are request-based sources (playlist()).
 # Use temporary local M3U files and the real AzuraCast jingle wrapper.
+# The production bootstrap declares the azuracast namespace before utilities.liq.
+let azuracast = ()
 %include "/var/azuracast/liquidsoap/utilities.liq"
 
 playlist_super_sequencia = playlist("/tmp/gh-smoke-empty.m3u")
