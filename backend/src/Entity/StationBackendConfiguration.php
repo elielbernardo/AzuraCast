@@ -372,7 +372,7 @@ final class StationBackendConfiguration extends AbstractArrayEntity
 
     public const string CUSTOM_POST_PLAYLISTS = 'custom_config_post_playlists';
 
-    #[OA\\Property(
+    #[OA\Property(
         description: 'Custom Liquidsoap Configuration: Post-Playlists Section (before AutoDJ and request queues)'
     )]
     public ?string $custom_config_post_playlists = null;
