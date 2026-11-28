@@ -15,7 +15,8 @@ time.zone.set("America/Sao_Paulo")
 # Isso preserva os metadados da musica e evita expor queue:[request]
 # dentro de operadores que combinam fontes heterogeneas.
 def gh_source(s) =
-  source(source.tracks(s))
+  let {audio, metadata, track_marks} = source.tracks(s)
+  source({audio=audio, metadata=metadata, track_marks=track_marks})
 end
 
 # Um bloco comercial completo. once() limita cada playlist a uma faixa
@@ -406,7 +407,7 @@ gh_entrada_gospel_club_sabado = sequence(
   ]
 )
 
-gh_programa_super_sequencia = sequence([gh_entrada_super_sequencia, playlist_super_sequencia])
+gh_programa_super_sequencia = sequence([gh_entrada_super_sequencia, gh_source(playlist_super_sequencia)])
 gh_programa_classic_hits = sequence([gh_entrada_classic_hits, gh_classic_hits])
 gh_programa_gospel_beats = sequence([gh_entrada_gospel_beats, gh_gospel_beats])
 gh_programa_conexao_hits = sequence([gh_entrada_conexao_hits, gh_conexao_hits])
