@@ -283,8 +283,9 @@ export interface ApiAdminDebugQueue {
         | "high_priority"
         | "normal_priority"
         | "low_priority"
+        | "search_index"
         | "media"
-        | "backup";
+        | "podcast_media";
     count: number;
     url: string;
 }
@@ -1318,11 +1319,6 @@ export interface ApiStationPlaylistParentGroup {
      * @example "My Group"
      */
     name: string;
-    /**
-     * Whether this group or any group it is nested in has "Avoid Duplicate Artists/Titles" enabled.
-     * @example true
-     */
-    avoids_duplicates: boolean;
 }
 
 export interface ApiStationPlaylistQueue {
@@ -2526,6 +2522,8 @@ export interface StationBackendConfiguration {
     custom_config_pre_playlists?: string | null;
     /** Custom Liquidsoap Configuration: Pre-Live Section */
     custom_config_pre_live?: string | null;
+    /** Custom Liquidsoap Configuration: Post-Playlists Section */
+    custom_config_post_playlists?: string | null;
     /** Custom Liquidsoap Configuration: Pre-Fade Section */
     custom_config_pre_fade?: string | null;
     /** Custom Liquidsoap Configuration: Pre-Broadcast Section */
@@ -2913,7 +2911,7 @@ export type StorageLocation = HasAutoIncrementId & {
     /** The private key pass phrase for SFTP adapters */
     sftpPrivateKeyPassPhrase?: string | null;
     /** @example "120000" */
-    storageQuotaBytes?: any;
+    storageQuotaBytes?: any | null;
     /** @example "50 GB" */
     storageQuota?: string | null;
     /** @example "60000" */
@@ -2921,7 +2919,7 @@ export type StorageLocation = HasAutoIncrementId & {
     /** @example "1 GB" */
     storageUsed?: string;
     /** @example "120000" */
-    storageAvailableBytes?: any;
+    storageAvailableBytes?: any | null;
     /** @example "1 GB" */
     storageAvailable?: string;
 };

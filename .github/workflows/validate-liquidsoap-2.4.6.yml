@@ -1,0 +1,62 @@
+name: Validate Liquidsoap 2.4.6
+
+on:
+  push:
+    branches:
+      - feature/gospelhits-liquidsoap-integration
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-test:
+    name: Build dependencies and verify Liquidsoap 2.4.6
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - name: Checkout selected branch
+        uses: actions/checkout@v5
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v4
+
+      - name: Build AzuraCast pre-final image (no publish)
+        run: |
+          docker build --progress=plain --target pre-final --tag azuracast-liquidsoap-test:${GITHUB_SHA} .
+
+      - name: Confirm image was built
+        run: |
+          docker image inspect azuracast-liquidsoap-test:${GITHUB_SHA} --format '{{.Id}}'
+
+      - name: Verify Liquidsoap version inside built image
+        run: |
+          docker run --rm --entrypoint liquidsoap azuracast-liquidsoap-test:${GITHUB_SHA} --version | tee /tmp/liquidsoap-version.txt
+          grep -qE '(^|[^0-9])2\.4\.6([^0-9]|$)' /tmp/liquidsoap-version.txt
+
+      - name: Verify versioned Gospel Hits schedule is included in the image
+        run: |
+          docker run --rm --entrypoint sh azuracast-liquidsoap-test:${GITHUB_SHA} -ec '
+            test -r /var/azuracast/liquidsoap/gospelhits_schedule.liq
+            grep -q "gh_grade_semanal" /var/azuracast/liquidsoap/gospelhits_schedule.liq
+          '
+
+      - name: PHP syntax check for automatic schedule loader
+        run: |
+          docker run --rm \
+            --volume "$GITHUB_WORKSPACE/backend/src/Radio/Backend/Liquidsoap/ConfigWriter.php:/tmp/ConfigWriter.php:ro" \
+            --entrypoint php \
+            azuracast-liquidsoap-test:${GITHUB_SHA} \
+            -l /tmp/ConfigWriter.php
+
+          grep -q "gospelhits" backend/src/Radio/Backend/Liquidsoap/ConfigWriter.php
+          grep -q "gospelhits_schedule.liq" backend/src/Radio/Backend/Liquidsoap/ConfigWriter.php
+
+      - name: Type-check isolated Gospel Hits weekly schedule
+        run: |
+          docker run --rm \
+            --volume "$GITHUB_WORKSPACE/tests/liquidsoap:/tests:ro" \
+            --volume "$GITHUB_WORKSPACE/util/docker/stations/liquidsoap:/var/azuracast/liquidsoap:ro" \
+            --entrypoint liquidsoap \
+            azuracast-liquidsoap-test:${GITHUB_SHA} \
+            --check /tests/gospelhits-schedule-smoke.liq
