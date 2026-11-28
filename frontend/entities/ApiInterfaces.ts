@@ -2522,6 +2522,8 @@ export interface StationBackendConfiguration {
     custom_config_pre_playlists?: string | null;
     /** Custom Liquidsoap Configuration: Pre-Live Section */
     custom_config_pre_live?: string | null;
+    /** Custom Liquidsoap Configuration: Post-Playlists Section */
+    custom_config_post_playlists?: string | null;
     /** Custom Liquidsoap Configuration: Pre-Fade Section */
     custom_config_pre_fade?: string | null;
     /** Custom Liquidsoap Configuration: Pre-Broadcast Section */
