@@ -22,17 +22,16 @@ end
 # Um bloco comercial completo. once() limita cada playlist a uma faixa
 # por passagem, permitindo a composicao sequencial sem repetir a playlist
 # de anuncios indefinidamente dentro do mesmo bloco.
-gh_bloco_comercial = sequence(
+gh_bloco_comercial = rotate.merge(
   id="gh_bloco_comercial",
-  merge=true,
   [
-    once(playlist_compartilhado___comerciais___saida_de_bloco),
-    once(playlist_compartilhado___comerciais___anuncios),
-    once(playlist_compartilhado___comerciais___vhts_entre_comerciais),
-    once(playlist_compartilhado___comerciais___anuncios),
-    once(playlist_compartilhado___comerciais___vhts_entre_comerciais),
-    once(playlist_compartilhado___comerciais___anuncios),
-    once(playlist_compartilhado___comerciais___volta_de_bloco)
+    playlist_compartilhado___comerciais___saida_de_bloco,
+    playlist_compartilhado___comerciais___anuncios,
+    playlist_compartilhado___comerciais___vhts_entre_comerciais,
+    playlist_compartilhado___comerciais___anuncios,
+    playlist_compartilhado___comerciais___vhts_entre_comerciais,
+    playlist_compartilhado___comerciais___anuncios,
+    playlist_compartilhado___comerciais___volta_de_bloco
   ]
 )
 
@@ -41,19 +40,18 @@ gh_bloco_comercial = sequence(
 # e deliberadamente excluida desta rotacao.
 # Bloco comercial exclusivo deste programa: BREAK antes dos anuncios
 # e RETORNO depois da vinheta compartilhada de volta.
-gh_bloco_comercial_classic_hits = sequence(
+gh_bloco_comercial_classic_hits = rotate.merge(
   id="gh_bloco_comercial_classic_hits",
-  merge=true,
   [
-    once(playlist_vinhetas___classic_hits___03___break),
-    once(playlist_compartilhado___comerciais___saida_de_bloco),
-    once(playlist_compartilhado___comerciais___anuncios),
-    once(playlist_compartilhado___comerciais___vhts_entre_comerciais),
-    once(playlist_compartilhado___comerciais___anuncios),
-    once(playlist_compartilhado___comerciais___vhts_entre_comerciais),
-    once(playlist_compartilhado___comerciais___anuncios),
-    once(playlist_compartilhado___comerciais___volta_de_bloco),
-    once(playlist_vinhetas___classic_hits___04___retorno)
+    playlist_vinhetas___classic_hits___03___break,
+    playlist_compartilhado___comerciais___saida_de_bloco,
+    playlist_compartilhado___comerciais___anuncios,
+    playlist_compartilhado___comerciais___vhts_entre_comerciais,
+    playlist_compartilhado___comerciais___anuncios,
+    playlist_compartilhado___comerciais___vhts_entre_comerciais,
+    playlist_compartilhado___comerciais___anuncios,
+    playlist_compartilhado___comerciais___volta_de_bloco,
+    playlist_vinhetas___classic_hits___04___retorno
   ]
 )
 
@@ -65,19 +63,18 @@ gh_classic_hits = rotate(
 
 # Bloco comercial exclusivo deste programa: BREAK antes dos anuncios
 # e RETORNO depois da vinheta compartilhada de volta.
-gh_bloco_comercial_gospel_beats = sequence(
+gh_bloco_comercial_gospel_beats = rotate.merge(
   id="gh_bloco_comercial_gospel_beats",
-  merge=true,
   [
-    once(playlist_vinhetas___gospel_beats___03___break),
-    once(playlist_compartilhado___comerciais___saida_de_bloco),
-    once(playlist_compartilhado___comerciais___anuncios),
-    once(playlist_compartilhado___comerciais___vhts_entre_comerciais),
-    once(playlist_compartilhado___comerciais___anuncios),
-    once(playlist_compartilhado___comerciais___vhts_entre_comerciais),
-    once(playlist_compartilhado___comerciais___anuncios),
-    once(playlist_compartilhado___comerciais___volta_de_bloco),
-    once(playlist_vinhetas___gospel_beats___04___retorno)
+    playlist_vinhetas___gospel_beats___03___break,
+    playlist_compartilhado___comerciais___saida_de_bloco,
+    playlist_compartilhado___comerciais___anuncios,
+    playlist_compartilhado___comerciais___vhts_entre_comerciais,
+    playlist_compartilhado___comerciais___anuncios,
+    playlist_compartilhado___comerciais___vhts_entre_comerciais,
+    playlist_compartilhado___comerciais___anuncios,
+    playlist_compartilhado___comerciais___volta_de_bloco,
+    playlist_vinhetas___gospel_beats___04___retorno
   ]
 )
 
@@ -89,19 +86,18 @@ gh_gospel_beats = rotate(
 
 # Bloco comercial exclusivo deste programa: BREAK antes dos anuncios
 # e RETORNO depois da vinheta compartilhada de volta.
-gh_bloco_comercial_conexao_hits = sequence(
+gh_bloco_comercial_conexao_hits = rotate.merge(
   id="gh_bloco_comercial_conexao_hits",
-  merge=true,
   [
-    once(playlist_vinhetas___conexao_hits___03___break),
-    once(playlist_compartilhado___comerciais___saida_de_bloco),
-    once(playlist_compartilhado___comerciais___anuncios),
-    once(playlist_compartilhado___comerciais___vhts_entre_comerciais),
-    once(playlist_compartilhado___comerciais___anuncios),
-    once(playlist_compartilhado___comerciais___vhts_entre_comerciais),
-    once(playlist_compartilhado___comerciais___anuncios),
-    once(playlist_compartilhado___comerciais___volta_de_bloco),
-    once(playlist_vinhetas___conexao_hits___04___retorno)
+    playlist_vinhetas___conexao_hits___03___break,
+    playlist_compartilhado___comerciais___saida_de_bloco,
+    playlist_compartilhado___comerciais___anuncios,
+    playlist_compartilhado___comerciais___vhts_entre_comerciais,
+    playlist_compartilhado___comerciais___anuncios,
+    playlist_compartilhado___comerciais___vhts_entre_comerciais,
+    playlist_compartilhado___comerciais___anuncios,
+    playlist_compartilhado___comerciais___volta_de_bloco,
+    playlist_vinhetas___conexao_hits___04___retorno
   ]
 )
 
@@ -113,19 +109,18 @@ gh_conexao_hits = rotate(
 
 # Bloco comercial exclusivo deste programa: BREAK antes dos anuncios
 # e RETORNO depois da vinheta compartilhada de volta.
-gh_bloco_comercial_hits_brasil = sequence(
+gh_bloco_comercial_hits_brasil = rotate.merge(
   id="gh_bloco_comercial_hits_brasil",
-  merge=true,
   [
-    once(playlist_vinhetas___hits_brasil___03___break),
-    once(playlist_compartilhado___comerciais___saida_de_bloco),
-    once(playlist_compartilhado___comerciais___anuncios),
-    once(playlist_compartilhado___comerciais___vhts_entre_comerciais),
-    once(playlist_compartilhado___comerciais___anuncios),
-    once(playlist_compartilhado___comerciais___vhts_entre_comerciais),
-    once(playlist_compartilhado___comerciais___anuncios),
-    once(playlist_compartilhado___comerciais___volta_de_bloco),
-    once(playlist_vinhetas___hits_brasil___04___retorno)
+    playlist_vinhetas___hits_brasil___03___break,
+    playlist_compartilhado___comerciais___saida_de_bloco,
+    playlist_compartilhado___comerciais___anuncios,
+    playlist_compartilhado___comerciais___vhts_entre_comerciais,
+    playlist_compartilhado___comerciais___anuncios,
+    playlist_compartilhado___comerciais___vhts_entre_comerciais,
+    playlist_compartilhado___comerciais___anuncios,
+    playlist_compartilhado___comerciais___volta_de_bloco,
+    playlist_vinhetas___hits_brasil___04___retorno
   ]
 )
 
@@ -137,19 +132,18 @@ gh_hits_brasil = rotate(
 
 # Bloco comercial exclusivo deste programa: BREAK antes dos anuncios
 # e RETORNO depois da vinheta compartilhada de volta.
-gh_bloco_comercial_gospel_rock = sequence(
+gh_bloco_comercial_gospel_rock = rotate.merge(
   id="gh_bloco_comercial_gospel_rock",
-  merge=true,
   [
-    once(playlist_vinhetas___gospel_rock___03___break),
-    once(playlist_compartilhado___comerciais___saida_de_bloco),
-    once(playlist_compartilhado___comerciais___anuncios),
-    once(playlist_compartilhado___comerciais___vhts_entre_comerciais),
-    once(playlist_compartilhado___comerciais___anuncios),
-    once(playlist_compartilhado___comerciais___vhts_entre_comerciais),
-    once(playlist_compartilhado___comerciais___anuncios),
-    once(playlist_compartilhado___comerciais___volta_de_bloco),
-    once(playlist_vinhetas___gospel_rock___04___retorno)
+    playlist_vinhetas___gospel_rock___03___break,
+    playlist_compartilhado___comerciais___saida_de_bloco,
+    playlist_compartilhado___comerciais___anuncios,
+    playlist_compartilhado___comerciais___vhts_entre_comerciais,
+    playlist_compartilhado___comerciais___anuncios,
+    playlist_compartilhado___comerciais___vhts_entre_comerciais,
+    playlist_compartilhado___comerciais___anuncios,
+    playlist_compartilhado___comerciais___volta_de_bloco,
+    playlist_vinhetas___gospel_rock___04___retorno
   ]
 )
 
@@ -161,19 +155,18 @@ gh_gospel_rock = rotate(
 
 # Bloco comercial exclusivo deste programa: BREAK antes dos anuncios
 # e RETORNO depois da vinheta compartilhada de volta.
-gh_bloco_comercial_pop_hits = sequence(
+gh_bloco_comercial_pop_hits = rotate.merge(
   id="gh_bloco_comercial_pop_hits",
-  merge=true,
   [
-    once(playlist_vinhetas___pop_hits___03___break),
-    once(playlist_compartilhado___comerciais___saida_de_bloco),
-    once(playlist_compartilhado___comerciais___anuncios),
-    once(playlist_compartilhado___comerciais___vhts_entre_comerciais),
-    once(playlist_compartilhado___comerciais___anuncios),
-    once(playlist_compartilhado___comerciais___vhts_entre_comerciais),
-    once(playlist_compartilhado___comerciais___anuncios),
-    once(playlist_compartilhado___comerciais___volta_de_bloco),
-    once(playlist_vinhetas___pop_hits___04___retorno)
+    playlist_vinhetas___pop_hits___03___break,
+    playlist_compartilhado___comerciais___saida_de_bloco,
+    playlist_compartilhado___comerciais___anuncios,
+    playlist_compartilhado___comerciais___vhts_entre_comerciais,
+    playlist_compartilhado___comerciais___anuncios,
+    playlist_compartilhado___comerciais___vhts_entre_comerciais,
+    playlist_compartilhado___comerciais___anuncios,
+    playlist_compartilhado___comerciais___volta_de_bloco,
+    playlist_vinhetas___pop_hits___04___retorno
   ]
 )
 
@@ -185,19 +178,18 @@ gh_pop_hits = rotate(
 
 # Bloco comercial exclusivo deste programa: BREAK antes dos anuncios
 # e RETORNO depois da vinheta compartilhada de volta.
-gh_bloco_comercial_ultimo_volume = sequence(
+gh_bloco_comercial_ultimo_volume = rotate.merge(
   id="gh_bloco_comercial_ultimo_volume",
-  merge=true,
   [
-    once(playlist_vinhetas___ultimo_volume___03___break),
-    once(playlist_compartilhado___comerciais___saida_de_bloco),
-    once(playlist_compartilhado___comerciais___anuncios),
-    once(playlist_compartilhado___comerciais___vhts_entre_comerciais),
-    once(playlist_compartilhado___comerciais___anuncios),
-    once(playlist_compartilhado___comerciais___vhts_entre_comerciais),
-    once(playlist_compartilhado___comerciais___anuncios),
-    once(playlist_compartilhado___comerciais___volta_de_bloco),
-    once(playlist_vinhetas___ultimo_volume___04___retorno)
+    playlist_vinhetas___ultimo_volume___03___break,
+    playlist_compartilhado___comerciais___saida_de_bloco,
+    playlist_compartilhado___comerciais___anuncios,
+    playlist_compartilhado___comerciais___vhts_entre_comerciais,
+    playlist_compartilhado___comerciais___anuncios,
+    playlist_compartilhado___comerciais___vhts_entre_comerciais,
+    playlist_compartilhado___comerciais___anuncios,
+    playlist_compartilhado___comerciais___volta_de_bloco,
+    playlist_vinhetas___ultimo_volume___04___retorno
   ]
 )
 
@@ -209,19 +201,18 @@ gh_ultimo_volume = rotate(
 
 # Bloco comercial exclusivo deste programa: BREAK antes dos anuncios
 # e RETORNO depois da vinheta compartilhada de volta.
-gh_bloco_comercial_gospel_club = sequence(
+gh_bloco_comercial_gospel_club = rotate.merge(
   id="gh_bloco_comercial_gospel_club",
-  merge=true,
   [
-    once(playlist_vinhetas___gospel_club___03___break),
-    once(playlist_compartilhado___comerciais___saida_de_bloco),
-    once(playlist_compartilhado___comerciais___anuncios),
-    once(playlist_compartilhado___comerciais___vhts_entre_comerciais),
-    once(playlist_compartilhado___comerciais___anuncios),
-    once(playlist_compartilhado___comerciais___vhts_entre_comerciais),
-    once(playlist_compartilhado___comerciais___anuncios),
-    once(playlist_compartilhado___comerciais___volta_de_bloco),
-    once(playlist_vinhetas___gospel_club___04___retorno)
+    playlist_vinhetas___gospel_club___03___break,
+    playlist_compartilhado___comerciais___saida_de_bloco,
+    playlist_compartilhado___comerciais___anuncios,
+    playlist_compartilhado___comerciais___vhts_entre_comerciais,
+    playlist_compartilhado___comerciais___anuncios,
+    playlist_compartilhado___comerciais___vhts_entre_comerciais,
+    playlist_compartilhado___comerciais___anuncios,
+    playlist_compartilhado___comerciais___volta_de_bloco,
+    playlist_vinhetas___gospel_club___04___retorno
   ]
 )
 
@@ -443,12 +434,11 @@ gh_grade_semanal = switch(
 # Cada faixa da rotacao geral recebe uma ponte. merge=true transforma
 # musica + ponte em uma unica faixa logica, portanto a ponte nao consome
 # uma das seis posicoes musicais do contador comercial.
-gh_musica_com_ponte = sequence(
+gh_musica_com_ponte = rotate.merge(
   id="gh_musica_com_ponte",
-  merge=true,
   [
     radio,
-    once(playlist_vinhetas_pontes_28rotacao_geral29)
+    playlist_vinhetas_pontes_28rotacao_geral29
   ]
 )
 
