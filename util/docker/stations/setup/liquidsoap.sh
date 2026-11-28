@@ -17,6 +17,14 @@ curl -fsSL https://repo.liquidsoap.info/setup.sh | sh -s -- --channel v2.4.6
 
 apt-get install -y --no-install-recommends liquidsoap
 
+# Fail the image build if the pinned Liquidsoap channel resolves unexpectedly.
+LIQUIDSOAP_VERSION_CHECK="$(liquidsoap --version 2>&1)"
+echo "$LIQUIDSOAP_VERSION_CHECK"
+if ! grep -qE '(^|[^0-9])2\\.4\\.6([^0-9]|$)' <<< "$LIQUIDSOAP_VERSION_CHECK"; then
+    echo "ERROR: Expected Liquidsoap 2.4.6, but found: $LIQUIDSOAP_VERSION_CHECK" >&2
+    exit 1
+fi
+
 # ARCHITECTURE=amd64
 # if [[ "$(uname -m)" = "aarch64" ]]; then
 #   ARCHITECTURE=arm64
