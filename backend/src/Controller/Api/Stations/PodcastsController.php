@@ -17,6 +17,7 @@ use App\Http\ServerRequest;
 use App\OpenApi;
 use App\Service\Flow\UploadedFile;
 use App\Utilities\Types;
+use InvalidArgumentException;
 use OpenApi\Attributes as OA;
 use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\Serializer\Serializer;
@@ -303,6 +304,17 @@ final class PodcastsController extends AbstractApiCrudController
 
         if ($record->source === PodcastSources::Manual) {
             $record->playlist = null;
+        }
+
+        if ($record->playlist !== null) {
+            // Verify that the playlist is associated with one of the stations
+            // that uses this podcast's storage location.
+            if (
+                $record->playlist->station->podcasts_storage_location->id !==
+                $record->storage_location->id
+            ) {
+                throw new InvalidArgumentException('Cannot associate this playlist with this podcast.');
+            }
         }
 
         if (null !== $newCategories) {
