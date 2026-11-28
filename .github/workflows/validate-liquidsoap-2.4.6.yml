@@ -41,6 +41,7 @@ jobs:
           docker run --rm --entrypoint sh azuracast-liquidsoap-test:${GITHUB_SHA} -ec '
             test -r /var/azuracast/liquidsoap/gospelhits_schedule.liq
             grep -q "gh_grade_semanal" /var/azuracast/liquidsoap/gospelhits_schedule.liq
+            : > /tmp/gh-smoke-empty.m3u
           '
 
       - name: PHP syntax check for automatic schedule loader
