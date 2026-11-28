@@ -11,6 +11,7 @@ use App\Entity\Api\Traits\HasLinks;
 use App\Entity\ApiKey;
 use App\Entity\Repository\UserRepository;
 use App\Entity\User;
+use App\Enums\GlobalPermissions;
 use App\Exception\ValidationException;
 use App\Http\Response;
 use App\Http\ServerRequest;
@@ -121,6 +122,18 @@ final class ApiKeysController extends AbstractApiCrudController
         }
 
         $user = $this->userRepo->findByIdOrEmail($createKey->user);
+
+        // Prevent a user from creating an API key with higher permissions than their own.
+        $acl = $request->getAcl();
+
+        if (
+            !$acl->isAllowed(GlobalPermissions::All)
+            && $acl->userAllowed(GlobalPermissions::All, $user)
+        ) {
+            throw new InvalidArgumentException(
+                'Cannot create an API key for a user with higher permissions than your own.'
+            );
+        }
 
         if (!($user instanceof User)) {
             throw new InvalidArgumentException('User not found!');
