@@ -458,7 +458,7 @@ gh_fechamento_diario = switch(
   [
     # Domingo: a Super Sequencia e o ultimo programa do dia.
     (
-      predicate.activates({7w and 13h}),
+      predicate.activates({0w and 13h}),
       once(playlist_vinhetas___super_sequencia___05___encerramento)
     ),
     # Segunda a sexta: Hits Brasil encerra as 18h e retorna a rotacao geral.
