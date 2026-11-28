@@ -24,6 +24,7 @@ export type StationRecord = Omit<
         | "stereo_tool_configuration_path"
         | "custom_config_top"
         | "custom_config_pre_playlists"
+        | "custom_config_post_playlists"
         | "custom_config_pre_live"
         | "custom_config_pre_fade"
         | "custom_config"
