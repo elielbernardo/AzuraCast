@@ -1,0 +1,64 @@
+name: Build and validate Gospel Hits AzuraCast image
+
+on:
+  push:
+    branches:
+      - feature/gospelhits-current-azuracast
+    paths:
+      - 'Dockerfile'
+      - 'backend/src/Entity/StationBackendConfiguration.php'
+      - 'backend/src/Radio/Backend/Liquidsoap/ConfigWriter.php'
+      - 'util/docker/stations/**'
+      - 'tests/liquidsoap/**'
+      - '.github/workflows/build-gospelhits-image.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-validate:
+    name: Build final image and validate Gospel Hits integration
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - name: Checkout current-base integration branch
+        uses: actions/checkout@v5
+        with:
+          ref: feature/gospelhits-current-azuracast
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v4
+
+      - name: Build complete AzuraCast image locally (no publish)
+        run: |
+          docker build --progress=plain --target final --tag azuracast-gospelhits-test:${GITHUB_SHA} .
+
+      - name: Verify built image and Liquidsoap version
+        run: |
+          docker image inspect azuracast-gospelhits-test:${GITHUB_SHA} --format '{{.Id}}'
+          docker run --rm --entrypoint liquidsoap azuracast-gospelhits-test:${GITHUB_SHA} --version | tee /tmp/liquidsoap-version.txt
+          grep -qE '(^|[^0-9])2\\.4\\.6([^0-9]|$)' /tmp/liquidsoap-version.txt
+
+      - name: Verify schedule and PHP loader are included
+        run: |
+          docker run --rm --entrypoint sh azuracast-gospelhits-test:${GITHUB_SHA} -ec '
+            test -r /var/azuracast/liquidsoap/gospelhits_schedule.liq
+            grep -q "gh_grade_semanal" /var/azuracast/liquidsoap/gospelhits_schedule.liq
+            php -l /var/azuracast/www/backend/src/Radio/Backend/Liquidsoap/ConfigWriter.php
+            grep -q "gospelhits_schedule.liq" /var/azuracast/www/backend/src/Radio/Backend/Liquidsoap/ConfigWriter.php
+          '
+
+      - name: Type-check isolated Gospel Hits schedule
+        run: |
+          docker run --rm \\
+            --volume "${GITHUB_WORKSPACE}/tests/liquidsoap:/tests:ro" \\
+            --volume "${GITHUB_WORKSPACE}/util/docker/stations/liquidsoap:/var/azuracast/liquidsoap:ro" \\
+            --entrypoint liquidsoap \\
+            azuracast-gospelhits-test:${GITHUB_SHA} \\
+            --check /tests/gospelhits-schedule-smoke.liq
+
+      - name: Confirm no image was published
+        run: |
+          echo "This workflow validates the image locally on the GitHub runner only."
+          echo "No GHCR login, image push, VPS deployment, or service restart is performed."
