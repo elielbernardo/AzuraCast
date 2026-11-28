@@ -10,6 +10,8 @@ on:
       - 'backend/src/Radio/Backend/Liquidsoap/ConfigWriter.php'
       - 'util/docker/stations/**'
       - 'tests/liquidsoap/**'
+      - 'frontend/components/Stations/LiquidsoapConfig.vue'
+      - 'frontend/entities/ApiInterfaces.ts'
       - '.github/workflows/build-gospelhits-image.yml'
   workflow_dispatch:
 
