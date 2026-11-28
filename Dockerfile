@@ -36,6 +36,20 @@ COPY --from=icecast /usr/local/bin/icecast /usr/local/bin/icecast
 COPY --from=icecast /usr/local/share/icecast /usr/local/share/icecast
 
 #
+# Frontend production assets build step
+#
+FROM node:24.19.0-bookworm-slim AS frontend-build
+
+WORKDIR /src
+
+COPY package.json package-lock.json ./
+RUN npm ci --include=dev
+
+COPY . .
+RUN npm run build \
+    && test -s /src/web/static/vite_dist/.vite/manifest.json
+
+#
 # Final build image
 #
 FROM php:8.5.13-fpm-trixie AS pre-final
@@ -174,8 +188,10 @@ USER azuracast
 WORKDIR /var/azuracast/www
 
 COPY --chown=azuracast:azuracast . .
+COPY --from=frontend-build --chown=azuracast:azuracast /src/web/static/vite_dist ./web/static/vite_dist
 
-RUN composer install --no-dev --no-ansi --no-autoloader --no-interaction \
+RUN test -s ./web/static/vite_dist/.vite/manifest.json \
+    && composer install --no-dev --no-ansi --no-autoloader --no-interaction \
     && composer dump-autoload --optimize --classmap-authoritative \
     && composer clear-cache
 
