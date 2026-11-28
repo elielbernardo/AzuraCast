@@ -450,6 +450,10 @@ final class ConfigWriter implements EventSubscriberInterface
             }
         }
 
+        // Load the version-controlled Gospel Hits schedule after native playlists
+        // exist and before AutoDJ/request queues are wrapped around the radio source.
+        $this->writeCustomConfigurationSection($event, StationBackendConfiguration::CUSTOM_POST_PLAYLISTS);
+
         if (!$station->backend_config->use_manual_autodj) {
             $event->appendBlock(
                 <<< LIQ
@@ -934,6 +938,28 @@ final class ConfigWriter implements EventSubscriberInterface
                     $divider . $sectionName . $divider,
                 ]
             );
+            return;
+        }
+
+        $station = $event->getStation();
+
+        // Gospel Hits schedule is shipped inside the image and loaded at the
+        // post-playlist hook, preserving native AutoDJ and request queue setup.
+        if (
+            $sectionName === StationBackendConfiguration::CUSTOM_POST_PLAYLISTS
+            && $station->short_name === 'gospelhits'
+        ) {
+            $schedulePath = '/var/azuracast/liquidsoap/gospelhits_schedule.liq';
+            if (!is_file($schedulePath) || !is_readable($schedulePath)) {
+                throw new RuntimeException(
+                    'The versioned Gospel Hits Liquidsoap schedule is missing or unreadable: ' . $schedulePath
+                );
+            }
+
+            $event->appendLines([
+                '# Gospel Hits weekly schedule (versioned in Git)',
+                '%include "' . $schedulePath . '"',
+            ]);
             return;
         }
 
