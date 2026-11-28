@@ -5,6 +5,7 @@ on:
     branches:
       - integration/upstream-2026-11-28-gospelhits
       - feature/gospelhits-liquidsoap-integration
+      - fix/gospelhits-playlist-source-types
   workflow_dispatch:
 
 permissions:
